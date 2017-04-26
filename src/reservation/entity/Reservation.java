@@ -6,34 +6,22 @@
 package reservation.entity;
 
 import java.io.Serializable;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 /**
  *
  * @author formation
  */
 @Entity
-@Table(name = "room")
-public class Chambre implements Serializable {
+public class Reservation implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
-    @Column(unique = true, nullable = false, length = 32)
-    private String nom;
-    
-    @Column(length = 4096)
-    private String description;
-    
-    @Column(nullable = false, name = "price")
-    private Double prix;
 
     public Long getId() {
         return id;
@@ -53,10 +41,10 @@ public class Chambre implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Chambre)) {
+        if (!(object instanceof Reservation)) {
             return false;
         }
-        Chambre other = (Chambre) object;
+        Reservation other = (Reservation) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -65,7 +53,7 @@ public class Chambre implements Serializable {
 
     @Override
     public String toString() {
-        return "reservation.entity.Chambre[ id=" + id + " ]";
+        return "reservation.entity.Reservation[ id=" + id + " ]";
     }
     
 }
