@@ -6,11 +6,15 @@
 package reservation.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -27,8 +31,47 @@ public class Hotel implements Serializable {
     @Column(length = 32, nullable = false)
     private String nom;
     
-    @Column(length = 128, nullable = false)
-    private String adresse;
+    @Embedded
+    private Adresse adr;
+
+    @OneToMany(mappedBy = "hotel")
+    private List<Chambre> chambres = new ArrayList<>();
+
+    public List<Chambre> getChambres() {
+        return chambres;
+    }
+
+    public void setChambres(List<Chambre> chambres) {
+        this.chambres = chambres;
+    }
+    
+    public Hotel() {
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public Adresse getAdr() {
+        return adr;
+    }
+
+    public void setAdr(Adresse adr) {
+        this.adr = adr;
+    }
+
+    public Hotel(String nom, Adresse adr) {
+        this.nom = nom;
+        this.adr = adr;
+    }
+
+    
+    
+    
     
     public Long getId() {
         return id;

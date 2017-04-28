@@ -6,46 +6,28 @@
 package reservation.entity;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.ManyToMany;
 
 /**
  *
  * @author formation
  */
 @Entity
-public class Reservation implements Serializable {
+public class Article implements Serializable {
 
-    public enum EtatReservation{
-        NON_VALIDE,
-        VALIDE,
-        TERMINE,
-        ANNULE
-    }
-    
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
-    @Temporal(TemporalType.DATE)
-    private Date dateDebut;
-    
-    @Temporal(TemporalType.DATE)
-    private Date dateFin;
-    
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date dateHeureReservation;
 
-    @Enumerated
-    private EtatReservation etat;
+    @ManyToMany(mappedBy = "articles")
+    private Set<Commande> commandes = new HashSet<>();
     
     public Long getId() {
         return id;
@@ -65,10 +47,10 @@ public class Reservation implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Reservation)) {
+        if (!(object instanceof Article)) {
             return false;
         }
-        Reservation other = (Reservation) object;
+        Article other = (Article) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -77,7 +59,7 @@ public class Reservation implements Serializable {
 
     @Override
     public String toString() {
-        return "reservation.entity.Reservation[ id=" + id + " ]";
+        return "reservation.entity.Article[ id=" + id + " ]";
     }
     
 }
